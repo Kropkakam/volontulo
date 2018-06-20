@@ -103,6 +103,7 @@ class OfferSerializer(serializers.HyperlinkedModelSerializer):
     slug = serializers.SerializerMethodField()
     image = OfferImageField(source='images', allow_null=True, required=False)
     organization = OrganizationField()
+    joined = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Offer
@@ -132,6 +133,7 @@ class OfferSerializer(serializers.HyperlinkedModelSerializer):
             'constant_coop',
             'volunteers_limit',
             'reserve_volunteers_limit',
+            'joined',
         )
     date_fields = [
         'started_at',
@@ -225,6 +227,11 @@ class OfferSerializer(serializers.HyperlinkedModelSerializer):
     def get_slug(obj):
         """Returns slugified title."""
         return slugify(obj.title)
+
+    def get_joined(self, obj):
+        """Returns if user joined offer."""
+        return  self.context['request'].user in obj.volunteers.all()
+
 
 
 class UserSerializer(serializers.ModelSerializer):
