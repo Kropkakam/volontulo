@@ -213,8 +213,7 @@ class OfferSerializer(serializers.HyperlinkedModelSerializer):
 
     def get_joined(self, obj):
         """Returns if user joined offer."""
-        return  self.context['request'].user in obj.volunteers.all()
-
+        return self.context['request'].user in obj.volunteers.all()
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -12,7 +12,6 @@ from apps.volontulo.factories import OfferFactory
 from apps.volontulo.serializers import OfferSerializer
 
 
-
 class TestOfferSerializer(TestCase):
 
     """Test for offers serializer."""
